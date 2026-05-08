@@ -1,60 +1,133 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
+import { FiArrowUpRight } from "react-icons/fi";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrollingUp, setScrollingUp] = useState(false);
+  const [showNavbar, setShowNavbar] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const heroHeight = window.innerHeight;
+
+      // Detect scroll direction
+      if (currentScrollY > lastScrollY) {
+        setScrollingUp(false); // scrolling DOWN
+      } else {
+        setScrollingUp(true); // scrolling UP
+      }
+
+      // Show/hide navbar (same as your logic)
+      if (currentScrollY < heroHeight) {
+        if (currentScrollY > lastScrollY && currentScrollY > 50) {
+          setShowNavbar(false);
+        } else {
+          setShowNavbar(true);
+        }
+      } else {
+        setShowNavbar(true);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
+
+  // 👉 Only show background when:
+  // 1. scrolling UP
+  // 2. not at top
+  const showBg = scrollingUp && lastScrollY > 50;
 
   return (
     <>
-      {/* Navbar Wrapper */}
-      <div className="fixed top-4 left-0 w-full z-50 flex justify-center">
-        
-        <div className="w-[95%] max-w-7xl bg-white/80 backdrop-blur-md border border-gray-200 rounded-full px-6 py-3 flex items-center justify-between">
-          
+      {/* Navbar */}
+      <div
+        className={`fixed top-4 left-0 w-full z-50 flex justify-center transition-all duration-500
+        ${showNavbar ? "translate-y-0 opacity-100" : "-translate-y-20 opacity-0"}
+        `}
+      >
+        <div
+          className={`group w-[98%] px-3 py-3 flex items-center justify-between rounded-full border transition-all duration-300
+          ${
+            showBg
+              ? "bg-white border-gray-200"
+              : "bg-transparent border-transparent"
+          }
+          `}
+        >
           {/* Logo */}
-          <div className="text-lg font-semibold tracking-tight">
+          <div
+            className={`text-lg font-semibold tracking-tight transition-colors duration-300
+            ${showBg ? "text-black" : "text-white"}
+            `}
+          >
             Rise at Seven
           </div>
 
-          {/* Desktop Menu */}
-          <ul className="hidden md:flex items-center gap-8 text-sm font-medium">
-            <li className="flex items-center gap-1 cursor-pointer">
-              Services <span>+</span>
-            </li>
-            <li className="flex items-center gap-1 cursor-pointer">
-              Industries <span>+</span>
-            </li>
-            <li className="flex items-center gap-1 cursor-pointer">
-              International <span>+</span>
-            </li>
-            <li className="flex items-center gap-1 cursor-pointer">
-              About <span>+</span>
-            </li>
+          {/* Menu */}
+          <ul
+            className={`hidden md:flex items-center gap-8 text-sm font-semibold transition-colors duration-300
+            ${showBg ? "text-black" : "text-white"}
+            `}
+          >
+            <li>Services +</li>
+            <li>Industries +</li>
+            <li>International +</li>
+            <li>About +</li>
 
-            {/* Work with badge */}
-            <li className="relative cursor-pointer">
+            <li className="relative">
               Work
-              <span className="absolute -top-2 -right-4 text-[10px] bg-green-300 text-black px-1.5 py-[1px] rounded-full">
+              <span className="absolute -top-5 -right-4 text-[8px] bg-green-300 text-black px-1.5 rounded-full">
                 25
               </span>
             </li>
 
-            <li className="cursor-pointer">Careers</li>
-            <li className="cursor-pointer">Blog</li>
-            <li className="cursor-pointer">Webinar</li>
+            <li>Careers</li>
+            <li>Blog</li>
+            <li>Webinar</li>
           </ul>
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <button className="bg-black text-white text-sm px-5 py-2.5 rounded-full hover:opacity-90 transition">
-              Get in Touch ↗
+            <button
+              className={`flex items-center gap-2 text-sm px-6 py-3 rounded-full border transition-all duration-300 hover:rounded-md
+              ${
+                showBg
+                  ? "bg-black text-white border-black"
+                  : "bg-white text-black border-white"
+              }
+              `}
+            >
+              <span className="transition-transform font-bold duration-300 hover:-translate-y-0.5">
+                Get in Touch
+              </span>
+
+              <FiArrowUpRight
+                className="transition-transform duration-300 hover:-translate-y-0.5"
+                size={16}
+              />
             </button>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile */}
           <div className="md:hidden">
             <button onClick={() => setIsOpen(!isOpen)}>
-              {isOpen ? <HiOutlineX size={26} /> : <HiOutlineMenu size={26} />}
+              {isOpen ? (
+                <HiOutlineX
+                  size={26}
+                  className={showBg ? "text-black" : "text-white"}
+                />
+              ) : (
+                <HiOutlineMenu
+                  size={26}
+                  className={showBg ? "text-black" : "text-white"}
+                />
+              )}
             </button>
           </div>
         </div>
@@ -82,8 +155,8 @@ const Navbar = () => {
         <p>Blog</p>
         <p>Webinar</p>
 
-        <button className="bg-white text-black px-6 py-3 rounded-full text-lg mt-4">
-          Get in Touch11 ↗
+        <button className="bg-black text-white px-6 py-3 rounded-full text-lg mt-4">
+          Get in Touch ↗
         </button>
       </div>
     </>
