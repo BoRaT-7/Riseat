@@ -4,11 +4,11 @@ const LogoMarquee = () => {
   return (
     <>
       {/* Logo Marquee Section */}
-      <section className="w-full bg-white py-6 overflow-hidden">
+      <section className="w-full bg-[#eceae8] py-6 overflow-hidden">
         <div className="flex items-center">
 
           {/* Left Static Text */}
-          <div className="shrink-0 px-6 md:px-10 border-r border-gray-200 z-10 bg-white">
+          <div className="shrink-0 px-6 md:px-10 border-r border-gray-200 z-10 bg-[#eceae8]">
             <p className="text-sm md:text-lg font-medium text-black whitespace-nowrap">
               The agency behind...
             </p>
@@ -65,14 +65,14 @@ const LogoMarquee = () => {
       </section>
 
       {/* Hero Section */}
-      <section className="w-full min-h-screen bg-white px-5 md:px-10 lg:px-16 py-10 overflow-hidden">
+      <section className="w-full min-h-screen bg-[#eceae8] px-5 md:px-10 lg:px-16 py-10 overflow-hidden">
 
         {/* Top Content */}
         <div className="flex flex-col lg:flex-row justify-between gap-16">
 
           {/* Left Text */}
           <div className="max-w-xl pt-8">
-            <p className="text-black text-[20px] md:text-[28px] leading-[1] font-medium tracking-tight">
+            <p className="text-black text-[24px] md:text-[25px] leading-[1] font-medium tracking-tight">
               A global team of search-first content marketers
               engineering semantic relevancy & category
               signals for both the internet and people
@@ -87,11 +87,11 @@ const LogoMarquee = () => {
 
   <h1
     className="text-black font-semibold tracking-[-4px] leading-[0.9]
-    text-[48px]
-    sm:text-[60px]
-    md:text-[78px]
-    lg:text-[88px]
-    xl:text-[110px]"
+    text-[26px]
+    sm:text-[30px]
+    md:text-[48px]
+    lg:text-[58px]
+    xl:text-[60px]"
   >
     Driving Demand &
 
@@ -105,7 +105,7 @@ const LogoMarquee = () => {
         w-[55px] h-[55px]
         sm:w-[65px] sm:h-[65px]
         md:w-[78px] md:h-[78px]
-        lg:w-[88px] lg:h-[88px]
+        lg:w-[68px] lg:h-[68px]
         xl:w-[105px] xl:h-[105px]
         object-cover rounded-2xl"
       />
@@ -117,15 +117,17 @@ const LogoMarquee = () => {
             {/* Buttons */}
             <div className="flex flex-wrap items-center gap-5 mt-10">
 
-              <button className="group bg-white hover:bg-black transition-all duration-300 rounded-full px-8 py-4 flex items-center gap-3">
-                <span className="text-black group-hover:text-white text-xl font-medium">
-                  Our Story
-                </span>
+            <button
+  className="group bg-white hover:rounded-md transition-all duration-300 rounded-full px-8 py-4 flex items-center gap-3"
+>
+  <span className="text-black text-xl font-medium">
+    Our Story
+  </span>
 
-                <span className="text-black group-hover:text-white text-xl transition-all duration-300 group-hover:translate-x-1">
-                  ↗
-                </span>
-              </button>
+  <span className="text-black text-xl transition-all duration-300 group-hover:translate-x-1">
+    ↗
+  </span>
+</button>
 
               <button className="group flex items-center gap-3">
                 <span className="text-black text-xl font-medium">
